@@ -6,6 +6,7 @@ from window import Window
 from model import Model, ModelPiece
 from vertex import Vertex
 from polygons.sphere import Sphere
+from polygons.cube import Cube
 from camera import Camera
 from entity import Entity
 from mesh import Mesh
@@ -36,6 +37,7 @@ def update(win, camera, camera_speed, delta_time):
     ):
         move_dir -= front
 
+
     if (
         glfw.get_key(window, glfw.KEY_A) == glfw.PRESS or
         glfw.get_key(window, glfw.KEY_LEFT) == glfw.PRESS
@@ -59,7 +61,7 @@ def update(win, camera, camera_speed, delta_time):
 
         
 def main():
-    win = Window(800, 600, "VESPR - Grid Infinito (Engine)")
+    win = Window(800, 600, "VESPR - Visualizer")
     if win.init_backend() != 0 or win.init() != 0:
         return 1
     win.set_visible(True)
@@ -77,8 +79,20 @@ def main():
     light = Light(glm.vec3(1.0, 1.0, 1.0), 1.5)
     light.set_translation(glm.vec3(2.0, 3.0, 4.0))
 
+    cube = Cube(3, glm.vec4(0.1, 0.1, 0.1, 1.0))
+
+    cube_transform = Transform()
+    cube_transform.set_position(glm.vec3(4.0, 2.0, 0.0))
+    cube.set_transform(cube_transform)
+    
+    cube1 = Cube(1, glm.vec4(0.3, 0.3, 0.5, 1.0))
+
+    cube1_transform = Transform()
+    cube1_transform.set_position(glm.vec3(0.0, 2.0, 0.0))
+    cube1.set_transform(cube1_transform)
+
     sphere = Sphere(
-        radius=1.0,
+        radius=0.5,
         lat_level=4,
         lon_level=4,
         sphere_color=glm.vec4(0.2, 0.6, 0.9, 1.0)
@@ -95,8 +109,28 @@ def main():
         sphere_color=glm.vec4(0.9, 0.2, 0.2, 1.0)
     )
     sphere_transform1 = Transform()
-    sphere_transform1.set_position(glm.vec3(1.0, 2.0, 1.0))
+    sphere_transform1.set_position(glm.vec3(3.0, 5.0, 1.0))
     sphere1.set_transform(sphere_transform1)
+
+    sphere2 = Sphere(
+        radius=1.4,
+        lat_level=4,
+        lon_level=4,
+        sphere_color=glm.vec4(0.5, 0.2, 0.9, 1.0)
+    )
+    sphere_transform2 = Transform()
+    sphere_transform2.set_position(glm.vec3(-2.0, 3.0, 1.0))
+    sphere2.set_transform(sphere_transform2)
+
+    sphere3 = Sphere(
+        radius=0.3,
+        lat_level=4,
+        lon_level=4,
+        sphere_color=glm.vec4(0.9, 0.9, 0.2, 1.0)
+    )
+    sphere_transform3 = Transform()
+    sphere_transform3.set_position(glm.vec3(-4.0, 2.0, 1.0))
+    sphere3.set_transform(sphere_transform3)
 
     renderer = Renderer()
 
@@ -180,6 +214,10 @@ def main():
 
         sphere.render(renderer, camera, light)
         sphere1.render(renderer, camera, light)
+        sphere2.render(renderer, camera, light)
+        sphere3.render(renderer, camera, light)
+        cube.render(renderer, camera, light)
+        cube1.render(renderer, camera, light)
 
         win.swap_buffers()
         win.poll_events()
