@@ -15,6 +15,7 @@ from material import Material
 from transform import Transform
 from renderer import Renderer
 from light import Light
+from electron_cloud import ElectronCloud
 
 
 def update(win, camera, camera_speed, delta_time):
@@ -132,6 +133,16 @@ def main():
     sphere_transform3.set_position(glm.vec3(-4.0, 2.0, 1.0))
     sphere3.set_transform(sphere_transform3)
 
+    electron_cloud = ElectronCloud(
+        num_electrons=8,
+        radius=20,
+        electron_radius=5,
+        color=glm.vec4(0.9, 0.7, 0.0, 1.0)
+    )
+    electron_cloud_transform = Transform()
+    electron_cloud_transform.set_position(glm.vec3(-10, 27, 10))
+    electron_cloud.set_transform(electron_cloud_transform)
+
     renderer = Renderer()
 
     mouse_pressed = False
@@ -204,9 +215,11 @@ def main():
     floor_entity = Entity(floor_model, floor_transform)
 
     while not win.should_close():
+        delta_time = win.get_delta_time()
+
         renderer.clear()
 
-        update(win, camera, camera_speed, win.get_delta_time())
+        update(win, camera, camera_speed, delta_time)
 
         floor_shader.use()
         floor_shader.set_uniform("camera_pos", camera.get_position())
@@ -218,6 +231,9 @@ def main():
         sphere3.render(renderer, camera, light)
         cube.render(renderer, camera, light)
         cube1.render(renderer, camera, light)
+
+        electron_cloud.render(renderer, camera, light)
+        electron_cloud.update_positions(delta_time)
 
         win.swap_buffers()
         win.poll_events()

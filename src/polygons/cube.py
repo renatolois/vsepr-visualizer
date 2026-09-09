@@ -13,7 +13,11 @@ from renderer import Renderer
 
 
 class Cube:
-    def __init__(self, size_factor: float):
+    def __init__(
+        self,
+        size_factor: float,
+        cube_color: glm.vec4 = glm.vec4(0.2, 0.4, 0.6, 1.0)
+    ):
         s = size_factor
         half = s * 0.5
 
@@ -158,7 +162,7 @@ class Cube:
         cube_mesh = Mesh(cube_vertices, cube_indices)
         cube_shader = Shader("src/shaders/polygon.vert",
                              "src/shaders/polygon.frag")
-        cube_material = Material(cube_shader, glm.vec4(0.5, 0.5, 0.9, 1.0))
+        cube_material = Material(cube_shader, cube_color)
         cube_transform = Transform(
             glm.vec3(0.0, 0.0, 0.0),
             glm.quat(1.0, 0.0, 0.0, 0.0),

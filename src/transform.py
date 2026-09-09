@@ -11,7 +11,7 @@ class Transform:
     ):
         self.position = (
             position if position is not None
-            else glm.vec3(1.0, 1.0, 1.0)
+            else glm.vec3(0.0, 0.0, 0.0)
         )
 
         self.rotation = (
@@ -61,6 +61,20 @@ class Transform:
         )
 
         return Transform(smoothed_position, smoothed_rotation, smoothed_scale)
+
+    @staticmethod
+    def smooth_position(
+            current_position: glm.vec3,
+            target_position: glm.vec3,
+            decay_rate: float,
+            delta_time: float
+    ) -> glm.vec3:
+        alpha = 1.0 - math.exp(-decay_rate * delta_time)
+        return glm.mix(
+            current_position,
+            target_position,
+            alpha
+        )
 
     @staticmethod
     def smooth_color(
