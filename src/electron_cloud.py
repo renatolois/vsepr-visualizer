@@ -37,8 +37,8 @@ class ElectronCloud:
         radius: float,
         electron_radius: float = 0.2,
         color: glm.vec4 = glm.vec4(0.7, 0.7, 0.1, 1.0),
-        speed: float = 2,
-        decay_rate: float = 5.0,
+        speed: float = 2.0,
+        decay_rate: float = 5.0,  # obsolet param
         num_positions: int = 60  # better with multiple of num_electrons
     ):
         self.num_electrons = num_electrons
@@ -84,7 +84,7 @@ class ElectronCloud:
         frac = idx - i0
         return glm.mix(self.positions[i0], self.positions[i1], frac)
 
-    def update_positions(self, delta_time):
+    def update_positions(self, delta_time: float) -> None:
         for i in range(self.num_electrons):
             electron, position_index = self.electrons_and_positions_indexes[i]
             position_index += delta_time * self.speed
@@ -93,7 +93,7 @@ class ElectronCloud:
             self.electrons_and_positions_indexes[i] = (electron, position_index)
 
     """
-    def update_positions(self, delta_time):
+    def update_positions(self, delta_time: float) -> None:
         for i in range(self.num_electrons):
             electron, position_index = self.electrons_and_positions_indexes[i]
             new_position_index = position_index + delta_time * self.speed
@@ -110,10 +110,10 @@ class ElectronCloud:
             self.electrons_and_positions_indexes[i] = (electron, new_position_index % self.num_positions)
     """
 
-    def set_speed(self, speed: float):
+    def set_speed(self, speed: float) -> None:
         self.speed = speed / (2*math.pi / self.positions_gap)
 
-    def get_transform(self):
+    def get_transform(self) ->  Transform:
         return self.electron_cloud_entity.get_transform()
 
     def set_transform(self, transform: Transform) -> None:
@@ -124,9 +124,9 @@ class ElectronCloud:
             electron = i[0]
             electron.set_color(color)
 
-    def get_color(self):
+    def get_color(self) -> glm.vec4:
         return self.electrons_and_positions_indexes[0][0].get_color()
 
-    def render(self, renderer: Renderer, camera: Camera, light: Light):
+    def render(self, renderer: Renderer, camera: Camera, light: Light) -> None:
         renderer.render_entity(camera, self.electron_cloud_entity, light)
         
