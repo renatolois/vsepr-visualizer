@@ -1,6 +1,7 @@
 import glfw
 import OpenGL.GL as gl
 import glm
+import math
 
 from window import Window
 from model import Model, ModelPiece
@@ -16,6 +17,7 @@ from transform import Transform
 from renderer import Renderer
 from light import Light
 from electron_cloud import ElectronCloud
+from atom import Atom
 
 
 def update(win, camera, camera_speed, delta_time):
@@ -80,7 +82,18 @@ def main():
     light = Light(glm.vec3(1.0, 1.0, 1.0), 1.5)
     light.set_translation(glm.vec3(2.0, 3.0, 4.0))
 
-    cube = Cube(3, glm.vec4(0.1, 0.1, 0.1, 1.0))
+    atom = Atom()
+    atom_transform = Transform()
+    atom_transform.set_position(glm.vec3(6.0, 5.0, 5.0))
+    atom_transform.set_rotation(
+        glm.angleAxis(
+            math.pi/4,
+            glm.vec3(0.0, 0.0, 1.0)
+        )
+    )
+    atom.set_transform(atom_transform)
+
+    cube = Cube(3, glm.vec4(1.0, 1.0, 1.0, 1.0))
 
     cube_transform = Transform()
     cube_transform.set_position(glm.vec3(4.0, 2.0, 0.0))
@@ -224,6 +237,9 @@ def main():
         floor_shader.use()
         floor_shader.set_uniform("camera_pos", camera.get_position())
         renderer.render_entity(camera, floor_entity, light=None)
+
+        atom.render(renderer, camera, light)
+        atom.update_positions(delta_time)
 
         sphere.render(renderer, camera, light)
         sphere1.render(renderer, camera, light)
