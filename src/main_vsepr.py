@@ -82,13 +82,16 @@ def main():
     light = Light(glm.vec3(1.0, 1.0, 1.0), 1.5)
     light.set_translation(glm.vec3(2.0, 3.0, 4.0))
 
-    atom = Atom()
+    atom = Atom(
+        electron_cloud_speed=16,
+        electron_cloud_num_electrons=8
+    )
     atom_transform = Transform()
     atom_transform.set_position(glm.vec3(6.0, 5.0, 5.0))
     atom_transform.set_rotation(
         glm.angleAxis(
             math.pi/4,
-            glm.vec3(0.0, 0.0, 1.0)
+            glm.vec3(1.0, 0.0, 0.0)
         )
     )
     atom.set_transform(atom_transform)
@@ -148,8 +151,8 @@ def main():
 
     electron_cloud = ElectronCloud(
         num_electrons=8,
-        radius=20,
-        electron_radius=5,
+        radius=2,
+        electron_radius=0.2,
         color=glm.vec4(0.9, 0.7, 0.0, 1.0)
     )
     electron_cloud_transform = Transform()
