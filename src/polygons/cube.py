@@ -163,17 +163,24 @@ class Cube:
         cube_shader = Shader("src/shaders/polygon.vert",
                              "src/shaders/polygon.frag")
         cube_material = Material(cube_shader, cube_color)
-        cube_transform = Transform(
+
+        piece_transform = Transform(
             glm.vec3(0.0, 0.0, 0.0),
             glm.quat(1.0, 0.0, 0.0, 0.0),
             glm.vec3(1.0, 1.0, 1.0)
         )
+        entity_transform = Transform(
+            glm.vec3(0.0, 0.0, 0.0),
+            glm.quat(1.0, 0.0, 0.0, 0.0),
+            glm.vec3(1.0, 1.0, 1.0)
+        )
+
         cube_model = Model(
             [cube_mesh],
             [cube_material],
-            [cube_transform]
+            [piece_transform]
         )
-        self.cube_entity = Entity(cube_model, cube_transform)
+        self.cube_entity = Entity(cube_model, entity_transform)
 
     def set_transform(self, transform: Transform) -> None:
         if self.cube_entity:

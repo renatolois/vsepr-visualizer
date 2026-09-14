@@ -39,19 +39,19 @@ class Shader:
 
         compileSuccess = gl.glGetShaderiv(vtxShaderId, gl.GL_COMPILE_STATUS)
         if compileSuccess == gl.GL_FALSE:
-            logBuffer = gl.glGetShaderInfoLog(vtxShaderId).decode('utf-8')
+            logBuffer = gl.glGetShaderInfoLog(vtxShaderId)
             gl.glDeleteShader(vtxShaderId)
             gl.glDeleteShader(frgShaderId)
-            error = vtxShaderFilepath + ":\n" + logBuffer
+            error = vtxShaderFilepath + ":\n" + logBuffer.decode('utf-8')
             raise RuntimeError(error)
 
         compileSuccess = gl.glGetShaderiv(frgShaderId, gl.GL_COMPILE_STATUS)
         if compileSuccess == gl.GL_FALSE:
-            logBuffer = gl.glGetShaderInfoLog(frgShaderId).decode('utf-8')
+            logBuffer = gl.glGetShaderInfoLog(frgShaderId)
             gl.glDeleteShader(vtxShaderId)
             gl.glDeleteShader(frgShaderId)
 
-            error = frgShaderFilepath + ":\n" + logBuffer
+            error = frgShaderFilepath + ":\n" + logBuffer.decode('utf-8')
             raise RuntimeError(error)
 
         self.program_id = gl.glCreateProgram()
@@ -63,11 +63,11 @@ class Shader:
 
         linkSuccess = gl.glGetProgramiv(self.program_id, gl.GL_LINK_STATUS)
         if linkSuccess == gl.GL_FALSE:
-            logBuffer = gl.glGetProgramInfoLog(self.program_id).decode('utf-8')
+            logBuffer = gl.glGetProgramInfoLog(self.program_id)
             gl.glDeleteShader(vtxShaderId)
             gl.glDeleteShader(frgShaderId)
             gl.glDeleteProgram(self.program_id)
-            error = "Program Link Error: \n" + logBuffer
+            error = "Program Link Error: \n" + logBuffer.decode('utf-8')
             raise RuntimeError(error)
 
         gl.glDeleteShader(vtxShaderId)

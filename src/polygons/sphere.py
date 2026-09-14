@@ -161,7 +161,15 @@ class Sphere:
         sphere_vertices, sphere_indices = get_sphere_vertices_and_indices(
             lat_level, lon_level, radius)
 
-        sphere_transform = Transform(
+        # Dois Transforms DISTINTOS (piece e entity).
+        # Python passa por referência: se forem o mesmo objeto, o Renderer
+        # aplica a matriz duas vezes, quebrando translação/rotação.
+        piece_transform = Transform(
+            glm.vec3(0.0, 0.0, 0.0),
+            glm.quat(1.0, 0.0, 0.0, 0.0),
+            glm.vec3(1.0, 1.0, 1.0)
+        )
+        entity_transform = Transform(
             glm.vec3(0.0, 0.0, 0.0),
             glm.quat(1.0, 0.0, 0.0, 0.0),
             glm.vec3(1.0, 1.0, 1.0)
@@ -181,10 +189,10 @@ class Sphere:
         sphere_model = Model(
             [sphere_mesh],
             [sphere_material],
-            [sphere_transform]
+            [piece_transform]
         )
 
-        self.sphere_entity = Entity(sphere_model, sphere_transform)
+        self.sphere_entity = Entity(sphere_model, entity_transform)
 
     def get_transform(self) -> Transform:
         return self.sphere_entity.get_transform()
