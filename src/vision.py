@@ -296,30 +296,4 @@ class Vision:
 
             det = np.linalg.det(R_final)
 
-            print("--- corners (imagem) ---")
-            for k in range(4):
-                print(f"  c{k} = ({corners[k, 0]:+7.1f}, "
-                      f"{corners[k, 1]:+7.1f})")
-
-            print("--- tvec OpenCV (camera) ---")
-            print(f"  tvec = ({tvec[0][0]:+.4f}, {tvec[1][0]:+.4f}, "
-                  f"{tvec[2][0]:+.4f})")
-
-            print("--- position OpenGL ---")
-            print(f"  pos  = ({position.x:+.4f}, {position.y:+.4f}, "
-                  f"{position.z:+.4f})")
-
-            print("--- rotação ---")
-            print(f"  det(R_gl) = {det:+.4f}")
-            print(f"  quat = (w={rotation.w:+.4f}, x={rotation.x:+.4f}, "
-                  f"y={rotation.y:+.4f}, z={rotation.z:+.4f})")
-
-            print("--- eixos locais do marcador (mundo OpenGL) ---")
-            print(f"  X_local = ({x_axis[0]:+.4f}, {x_axis[1]:+.4f}, "
-                  f"{x_axis[2]:+.4f})")
-            print(f"  Y_local = ({y_axis[0]:+.4f}, {y_axis[1]:+.4f}, "
-                  f"{y_axis[2]:+.4f})")
-            print(f"  Z_local = ({z_axis[0]:+.4f}, {z_axis[1]:+.4f}, "
-                  f"{z_axis[2]:+.4f})")
-
         return Transform(position, rotation, glm.vec3(1.0, 1.0, 1.0))

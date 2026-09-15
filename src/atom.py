@@ -1,4 +1,4 @@
-from glm import vec4
+import glm
 from polygons.sphere import Sphere
 from electron_cloud import ElectronCloud
 from light import Light
@@ -11,11 +11,11 @@ class Atom:
     def __init__(
         self,
         nucleus_radius: float = 0.7,
-        nucleus_color: vec4 = vec4(1.0, 0.0, 0.0, 1.0),
+        nucleus_color: glm.vec4 = glm.vec4(1.0, 0.0, 0.0, 1.0),
         nucleus_level: int = 4,
         electron_radius: float = 0.2,
         electron_level: int = 2,
-        electron_cloud_color: vec4 = vec4(6.0, 7.0, 0.0, 1.0),
+        electron_cloud_color: glm.vec4 = glm.vec4(6.0, 7.0, 0.0, 1.0),  # > 1.0 intentionally
         electron_cloud_radius: float = 3,
         electron_cloud_num_positions: int = 60,
         electron_cloud_speed: float = 2.0,
@@ -55,13 +55,25 @@ class Atom:
             self.electron_cloud.electron_cloud_entity
         )
 
+    def set_nucleus_color(self, color: glm.vec4) -> None:
+        self.atom.set_color(color)
+
+    def get_nucleus_color(self) -> glm.vec4:
+        return self.atom.get_color()
+
+    def set_electrons_color(self, color: glm.vec4) -> None:
+        self.electron_cloud.set_color(color)
+
+    def get_electrons_color(self) -> glm.vec4:
+        return self.electron_cloud.get_color()
+
     def get_transform(self) -> Transform:
         return self.atom.sphere_entity.get_transform()
 
     def set_transform(self, transform: Transform) -> None:
         self.atom.sphere_entity.set_transform(transform)
 
-    def update_positions(self, delta_time):
+    def update_positions(self, delta_time: float) -> None:
         self.electron_cloud.update_positions(delta_time)
 
     def render(self, renderer: Renderer, camera: Camera, light: Light) -> None:

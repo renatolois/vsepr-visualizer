@@ -13,6 +13,14 @@ from polygons.octahedron import Octahedron
 from polygons.icosahedron import Icosahedron
 from polygons.cylinder import Cylinder
 from polygons.cone import Cone
+from polygons.cuboid import Cuboid
+from polygons.pentagonal_bipyramid import PentagonalBipyramid
+from polygons.rhombic_dipyramid import RhombicDipyramid
+from polygons.square_antiprism import SquareAntiprism
+from polygons.square_pyramid import SquarePyramid
+from polygons.triangular_prism import TriangularPrism
+from polygons.triangular_pyramid import TriangularPyramid
+from polygons.trigonal_bipyramid import TrigonalBipyramid
 from camera import Camera
 from entity import Entity
 from mesh import Mesh
@@ -250,6 +258,70 @@ def main():
     sphere_transform.set_position(glm.vec3(14.0, 7.75, -30.0))
     sphere.set_transform(sphere_transform)
 
+    cuboid = Cuboid(
+        size_factor=2.5,
+        color=glm.vec4(0.3, 0.5, 0.7, 1.0)
+    )
+    cuboid_transform = Transform()
+    cuboid_transform.set_position(glm.vec3(-15.0, 3.0, -10.0))
+    cuboid.set_transform(cuboid_transform)
+
+    pentagonal_bipyramid = PentagonalBipyramid(
+        size_factor=2.5,
+        color=glm.vec4(0.8, 0.4, 0.9, 1.0)
+    )
+    pentagonal_bipyramid_transform = Transform()
+    pentagonal_bipyramid_transform.set_position(glm.vec3(0.0, 4.0, 15.0))
+    pentagonal_bipyramid.set_transform(pentagonal_bipyramid_transform)
+
+    rhombic_dipyramid = RhombicDipyramid(
+        size_factor=2.5,
+        color=glm.vec4(0.5, 0.9, 0.3, 1.0)
+    )
+    rhombic_dipyramid_transform = Transform()
+    rhombic_dipyramid_transform.set_position(glm.vec3(5.0, 6.0, 15.0))
+    rhombic_dipyramid.set_transform(rhombic_dipyramid_transform)
+
+    square_antiprism = SquareAntiprism(
+        size_factor=2.5,
+        color=glm.vec4(0.9, 0.6, 0.2, 1.0)
+    )
+    square_antiprism_transform = Transform()
+    square_antiprism_transform.set_position(glm.vec3(10.0, 4.0, 15.0))
+    square_antiprism.set_transform(square_antiprism_transform)
+
+    square_pyramid = SquarePyramid(
+        size_factor=2.5,
+        color=glm.vec4(0.2, 0.7, 0.5, 1.0)
+    )
+    square_pyramid_transform = Transform()
+    square_pyramid_transform.set_position(glm.vec3(-5.0, 5.0, 15.0))
+    square_pyramid.set_transform(square_pyramid_transform)
+
+    triangular_prism = TriangularPrism(
+        size_factor=2.5,
+        color=glm.vec4(0.6, 0.2, 0.9, 1.0)
+    )
+    triangular_prism_transform = Transform()
+    triangular_prism_transform.set_position(glm.vec3(-15.0, 6.0, 15.0))
+    triangular_prism.set_transform(triangular_prism_transform)
+
+    triangular_pyramid = TriangularPyramid(
+        size_factor=2.5,
+        color=glm.vec4(0.9, 0.9, 0.3, 1.0)
+    )
+    triangular_pyramid_transform = Transform()
+    triangular_pyramid_transform.set_position(glm.vec3(15.0, 5.0, 15.0))
+    triangular_pyramid.set_transform(triangular_pyramid_transform)
+
+    trigonal_bipyramid = TrigonalBipyramid(
+        size_factor=2.5,
+        color=glm.vec4(0.4, 0.8, 0.9, 1.0)
+    )
+    trigonal_bipyramid_transform = Transform()
+    trigonal_bipyramid_transform.set_position(glm.vec3(0.0, 8.0, -15.0))
+    trigonal_bipyramid.set_transform(trigonal_bipyramid_transform)
+
     renderer = Renderer()
 
     mouse_pressed = False
@@ -360,6 +432,14 @@ def main():
         cone.render(renderer, camera, light)
         cube.render(renderer, camera, light)
         sphere.render(renderer, camera, light)
+        cuboid.render(renderer, camera, light)
+        pentagonal_bipyramid.render(renderer, camera, light)
+        rhombic_dipyramid.render(renderer, camera, light)
+        square_antiprism.render(renderer, camera, light)
+        square_pyramid.render(renderer, camera, light)
+        triangular_prism.render(renderer, camera, light)
+        triangular_pyramid.render(renderer, camera, light)
+        trigonal_bipyramid.render(renderer, camera, light)
 
         electron_cloud.render(renderer, camera, light)
         electron_cloud.update_positions(delta_time)

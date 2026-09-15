@@ -6,7 +6,7 @@ import numpy as np
 from window import Window
 from camera import Camera
 from vision import Vision
-from polygons.tetrahedron import Tetrahedron      # <-- trocado
+from polygons.tetrahedron import Tetrahedron
 from renderer import Renderer
 from light import Light
 from shader import Shader
@@ -86,17 +86,6 @@ class DebugAxes:
             gl.glBindVertexArray(vao)
             gl.glDrawArrays(gl.GL_LINES, 0, 2)
             gl.glBindVertexArray(0)
-
-
-def print_marker_pose(pos: glm.vec3, rot: glm.quat, frame_id: int) -> None:
-    if frame_id % 30 != 0:
-        return
-    print(
-        f"[{frame_id:6d}] "
-        f"pos=({pos.x:+.4f}, {pos.y:+.4f}, {pos.z:+.4f})  "
-        f"quat=(w={rot.w:+.3f}, x={rot.x:+.3f}, "
-        f"y={rot.y:+.3f}, z={rot.z:+.3f})"
-    )
 
 
 def main():
@@ -208,7 +197,6 @@ def main():
 
                     pos = marker_transform.get_position()
                     rot = marker_transform.get_rotation()
-                    print_marker_pose(pos, rot, frame_id)
 
                     # Eixos do marcador
                     axes.set_transform(marker_transform)
