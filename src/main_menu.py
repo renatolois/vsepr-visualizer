@@ -1,4 +1,6 @@
 import sys
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 from main_math import main_math
 from main_chemistry_bounds import main_chemistry_bounds
@@ -81,9 +83,12 @@ def run_menu():
 
 
 if __name__ == "__main__":
-    escolha, camera_id = run_menu()
+    try:
+        choice, camera_id = run_menu()
 
-    if escolha == "math":
-        main_math(camera_id=camera_id)
-    elif escolha == "chem":
-        main_chemistry_bounds(camera_id=camera_id)
+        if choice == "math":
+            main_math(camera_id=camera_id)
+        elif choice == "chem":
+            main_chemistry_bounds(camera_id=camera_id)
+    except KeyboardInterrupt:
+        exit(1)
